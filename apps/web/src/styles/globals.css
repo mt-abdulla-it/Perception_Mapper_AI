@@ -1,0 +1,77 @@
+/* Global Design System Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary-h: 260;
+  --color-primary-s: 80%;
+  --color-primary-l: 60%;
+  --color-secondary-h: 210;
+  --color-secondary-s: 70%;
+  --color-secondary-l: 55%;
+  --color-accent-h: 340;
+  --color-accent-s: 80%;
+  --color-accent-l: 60%;
+  --color-bg: hsl(0, 0%, 5%); /* dark background */
+  --color-bg-light: hsl(0, 0%, 12%);
+  --color-text: hsl(0, 0%, 90%);
+  --radius: 0.75rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+/* Glassmorphism utility */
+.glass {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+}
+
+/* Button variants */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+  background: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+  color: white;
+}
+
+.btn-primary:hover {
+  background: hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) + 5%));
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary {
+  background: hsl(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l));
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: hsl(var(--color-secondary-h), var(--color-secondary-s), calc(var(--color-secondary-l) + 5%));
+  transform: scale(1.02);
+}
+
+/* Card */
+.card {
+  @apply glass p-6 md:p-8 space-y-4;
+}
