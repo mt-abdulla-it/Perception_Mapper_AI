@@ -1,0 +1,242 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum PlanTier {
+  FREE
+  BASIC
+  PRO
+}
+
+enum UserPlan {
+  FREE
+  BASIC
+  PRO
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+}
+
+enum AnalysisType {
+  TONE
+  BIAS
+  VOICE
+  IMAGE
+}
+
+enum ActionType {
+  LOGIN
+  ANALYZE
+  UPLOAD
+  VOICE
+}
+
+enum ApiKeyStatus {
+  ACTIVE
+  REVOKED
+  EXPIRED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id                     String       @id @default(uuid()) // using UUIDs
+  email                  String       @unique
+  fullName               String?
+  passwordHash           String?      // optional, omit if using Clerk
+  role                   UserRole     @default(USER)
+  plan                   UserPlan     @default(FREE)
+  status                 UserStatus   @default(ACTIVE)
+  lastLogin              DateTime?
+  createdAt              DateTime     @default(now())
+  updatedAt              DateTime     @updatedAt
+
+  // Relations
+  analyses               Analysis[]
+  voiceInputs            VoiceInput[]
+  imageUploads           ImageUpload[]
+  activityLogs           UserActivityLog[]
+  apiKeys                ApiKey[]
+  adminActions           AdminAction[]   @relation("AdminPerformed")
+  auditLogs              AuditLog[]      @relation("UserAudit")
+  customRules            CustomRule[]
+  apiLogs                ApiLog[]
+  targetUserActions      AdminAction[]   @relation("TargetUser")
+  userPreferences   UserPreferences?
+}
+
+
+model Analysis {
+  id               String        @id @default(uuid())
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  inputText         String        @db.Text
+  analysisType      AnalysisType
+  resultJSON        Json
+  confidenceScore   Float?
+  createdAt         DateTime      @default(now())
+}
+
+
+model ApiKey {
+  id          String       @id @default(uuid())
+  key         String       @unique // hashed key
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  status      ApiKeyStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now())
+  lastUsed    DateTime?
+}
+
+
+// Existing CustomRule retained for extensibility
+model CustomRule {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  pattern     String   // Regex pattern for target bias
+  type        String   // Category of custom bias
+  description String
+  rephrase    String   // Recommended objective alternative
+  createdAt   DateTime @default(now())
+}
+
+
+model UserActivityLog {
+  id          String   @id @default(uuid())
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId      String?
+  actionType  ActionType
+  metadata    Json?
+  timestamp   DateTime @default(now())
+}
+
+
+// Existing Policy retained
+model Policy {
+  id                 String   @id @default("global-policy")
+  textEnabled        Boolean  @default(true)
+  voiceEnabled       Boolean  @default(true)
+  imageEnabled       Boolean  @default(true)
+  limitFree          Int      @default(50)
+  limitPro           Int      @default(500)
+  limitTeam          Int      @default(5000)
+  rateFree           Int      @default(10)
+  ratePro            Int      @default(60)
+  rateTeam           Int      @default(300)
+  experimentalToggle Boolean  @default(false)
+  updatedAt          DateTime @updatedAt
+}
+
+
+// New VoiceInput model
+model VoiceInput {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  audioUrl    String
+  transcript  String?
+  createdAt   DateTime @default(now())
+}
+
+// New ImageUpload model
+model ImageUpload {
+  id             String   @id @default(uuid())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  imageUrl       String
+  analysisResult Json?
+  createdAt      DateTime @default(now())
+}
+
+// New ApiLog model
+model ApiLog {
+  id         String   @id @default(uuid())
+  endpoint   String
+  method     String
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId     String?
+  statusCode Int
+  timestamp  DateTime @default(now())
+}
+
+// New AdminAction model
+model AdminAction {
+  id            String   @id @default(uuid())
+  admin         User     @relation("AdminPerformed", fields: [adminId], references: [id], onDelete: Cascade)
+  adminId       String
+  actionType    String
+  targetUser    User?    @relation("TargetUser", fields: [targetUserId], references: [id], onDelete: SetNull)
+  targetUserId  String?
+  details       Json?
+  createdAt     DateTime @default(now())
+}
+
+// New AuditLog model
+model AuditLog {
+  id        String   @id @default(uuid())
+  actor     User?    @relation("UserAudit", fields: [actorId], references: [id], onDelete: SetNull)
+  actorId   String?
+  action    String
+  module    String   // users / ai / system etc.
+  timestamp DateTime @default(now())
+}
+
+model SystemSettings {
+  id              Int    @id @default(autoincrement())
+  theme           String @default("light")
+  language        String @default("EN")
+  uiAnimations    Boolean @default(true)
+  maintenanceMode Boolean @default(false)
+  rateLimit       Int    @default(1000)
+  signupEnabled   Boolean @default(true)
+}
+
+model AIEngineSettings {
+  id            Int    @id @default(autoincrement())
+  toneAnalysis  Boolean @default(true)
+  biasDetection Boolean @default(true)
+  voiceInput    Boolean @default(true)
+  imageAnalysis Boolean @default(true)
+}
+
+model UserPreferences {
+  id                Int    @id @default(autoincrement())
+  userId            String @unique
+  defaultDashboard  String @default("/dashboard")
+  notifications     Boolean @default(true)
+  autoLogoutMinutes Int    @default(30)
+  user              User   @relation(fields: [userId], references: [id])
+}
+
+// New models for team management
+model Team {
+  id          String        @id @default(cuid())
+  name        String
+  description String?
+  tier        String
+  status      String
+  maxMembers  Int
+  createdAt   DateTime      @default(now())
+  members     TeamMember[]
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  role      String
+  userId    String
+  teamId    String
+  createdAt DateTime @default(now())
+
+  team Team @relation(fields: [teamId], references: [id])
+}
