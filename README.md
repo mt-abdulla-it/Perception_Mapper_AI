@@ -1,4 +1,4 @@
-# Perception Mapper AI
+# Perception Mapper AI.
 
 Perception Mapper AI is an enterprise-grade, high-fidelity cognitive bias, tone, and multilingual sentiment analysis platform. Designed for journalists, content teams, and enterprises, it processes text in **English**, **Tamil (தமிழ்)**, and **Sinhala (සිංහල)** to identify cognitive distortions, deliver progress-metered emotional tone breakdowns, and suggest objective alternative rephrasings in real-time.
 
@@ -221,7 +221,9 @@ Subscribers can invoke analysis and rephrasing engines programmatically using st
 
 ## 🐳 Multi-Container Docker Deployment
 
-To spin up the entire production stack locally (Next.js web portal, NestJS API gateway, PostgreSQL, and FastAPI sidecar), use the root Docker Compose file:
+To spin up the backend production stack locally (NestJS API gateway, PostgreSQL, and FastAPI sidecar), use the root Docker Compose file:
+
+> **Note:** The Next.js web portal is currently not included in the compose file and should be run separately (e.g., via `npm run dev` or its own `Dockerfile`).
 
 ```bash
 # Build and run containers in background mode
