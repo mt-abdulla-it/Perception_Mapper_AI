@@ -243,3 +243,12 @@ docker-compose ps
 2. **E2E Browser Interaction Audits**:
    - Audits are automated via [ui_audit.js](file:///d:/Perception_Mapper_AI/ui_audit.js). This checks hydration status, responsive breakpoints, route health codes, and CTA triggers.
    - Run the audit manually via: `node ui_audit.js`.
+
+---
+
+## 👥 Authors
+
+| Name | Role |
+| :--- | :--- |
+| Suwedha | Software Idea Planner — Concept & Planning |
+| Abdullah | Software Developer — Development & Execution |
