@@ -1,4 +1,6 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-npm run lint
+if command -v npm >/dev/null 2>&1; then
+  npm run lint
+else
+  echo "Warning: 'npm' command not found. Skipping lint pre-commit hook."
+fi
