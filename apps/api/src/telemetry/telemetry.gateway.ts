@@ -8,6 +8,8 @@ import {
 } from "@nestjs/websockets";
 import { Server, Socket } from "socket.io";
 
+const NLP_ENGINE_URL = process.env.NLP_ENGINE_URL || "http://localhost:8000";
+
 @WebSocketGateway({
   cors: {
     origin: "*",
