@@ -53,7 +53,13 @@ export class AppController {
 
     try {
       // Apply rate limiting per-user before hitting the NLP engine
-      await this.rateLimiter.checkLimit(req.user.userId);
+      const rateResult = await this.rateLimiter.checkRateLimit(req.user.userId);
+      if (!rateResult.allowed) {
+        throw new HttpException(
+          `Rate limit exceeded. ${rateResult.remaining} requests remaining. Resets at ${new Date(rateResult.resetTime).toISOString()}.`,
+          HttpStatus.TOO_MANY_REQUESTS
+        );
+      }
 
       const response = await fetch(`${NLP_ENGINE_URL}/analyze`, {
         method: "POST",
