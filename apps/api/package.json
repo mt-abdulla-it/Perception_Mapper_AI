@@ -6,6 +6,7 @@
     "dev": "nest start --watch",
     "build": "nest build",
     "start": "nest start",
+    "postinstall": "prisma generate --schema=prisma/schema.prisma",
     "test": "jest"
   },
   "dependencies": {
