@@ -30,7 +30,7 @@ export class ApiKeyGuard implements CanActivate {
     request.user = {
       userId: "user_developer_team_0x9",
       email: "api-automation@team.org",
-      tier: "TEAM",
+      tier: "PRO",
     };
 
     return true;

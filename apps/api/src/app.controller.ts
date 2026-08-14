@@ -482,8 +482,8 @@ export class AppController {
     @Param("id") id: string,
     @Body() body: { tier: string }
   ) {
-    if (!body.tier || !["FREE", "PRO", "TEAM"].includes(body.tier.toUpperCase())) {
-      throw new HttpException("Invalid plan tier targeted", HttpStatus.BAD_REQUEST);
+    if (!body.tier || !["FREE", "BASIC", "PRO"].includes(body.tier.toUpperCase())) {
+      throw new HttpException("Invalid plan tier targeted. Must be FREE, BASIC, or PRO.", HttpStatus.BAD_REQUEST);
     }
     return await this.prisma.updateUserTier(id, body.tier.toUpperCase());
   }
@@ -524,8 +524,8 @@ export class AppController {
       }
     }
     if (body.plan !== undefined) {
-      if (typeof body.plan !== "string" || !["FREE", "PRO", "TEAM"].includes(body.plan.toUpperCase())) {
-        throw new HttpException("Invalid plan targeted. Must be FREE, PRO, or TEAM.", HttpStatus.BAD_REQUEST);
+      if (typeof body.plan !== "string" || !["FREE", "BASIC", "PRO"].includes(body.plan.toUpperCase())) {
+        throw new HttpException("Invalid plan targeted. Must be FREE, BASIC, or PRO.", HttpStatus.BAD_REQUEST);
       }
     }
     if (body.name !== undefined) {
