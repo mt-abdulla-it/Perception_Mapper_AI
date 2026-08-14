@@ -42,7 +42,7 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     }
     
     try {
-      const response = await fetch("http://localhost:8000/analyze", {
+      const response = await fetch(`${NLP_ENGINE_URL}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
