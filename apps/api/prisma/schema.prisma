@@ -9,14 +9,14 @@ generator client {
 
 enum PlanTier {
   FREE
+  BASIC
   PRO
-  TEAM
 }
 
 enum UserPlan {
   FREE
+  BASIC
   PRO
-  TEAM
 }
 
 enum UserStatus {

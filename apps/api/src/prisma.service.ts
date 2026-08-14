@@ -95,10 +95,10 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
         email: "sarah@percept.ai",
         name: "Sarah Jenkins",
         role: "USER",
-        tier: "TEAM",
+        tier: "PRO",
         isBlocked: false,
         status: "ACTIVE",
-        plan: "TEAM",
+        plan: "PRO",
         analysesUsed: 88,
         analysesLimit: 1000,
         lastLogin: new Date(Date.now() - 4 * 3600 * 1000),
@@ -146,10 +146,10 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
         email,
         name: email.split("@")[0],
         role: isDevAdmin ? "ADMIN" : "USER",
-        tier: "PRO",
+        tier: "BASIC",
         isBlocked: false,
         status: "ACTIVE",
-        plan: "PRO",
+        plan: "BASIC",
         analysesUsed: 0,
         analysesLimit: 100,
         lastLogin: new Date(),
@@ -347,9 +347,9 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
     const blockedUsers = this.users.filter(u => u.isBlocked).length;
     
     // Revenue calculations (simulate)
+    const basicCount = this.users.filter(u => u.tier === "BASIC").length;
     const proCount = this.users.filter(u => u.tier === "PRO").length;
-    const teamCount = this.users.filter(u => u.tier === "TEAM").length;
-    const monthlyRevenue = (proCount * 29) + (teamCount * 99) + 450; // realistic mock SaaS MRR
+    const monthlyRevenue = (basicCount * 19) + (proCount * 59) + 450; // realistic mock SaaS MRR
 
     return {
       totalUsers,
@@ -369,7 +369,7 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
     const user = this.users.find(u => u.id === userId);
     if (user) {
       user.tier = tier.toUpperCase();
-      user.analysesLimit = tier.toUpperCase() === "FREE" ? 50 : tier.toUpperCase() === "PRO" ? 500 : 5000;
+      user.analysesLimit = tier.toUpperCase() === "FREE" ? 50 : tier.toUpperCase() === "BASIC" ? 200 : 1000;
       console.log(`[Database Transaction] Updated User Plan Tier: ${userId} -> ${tier}`);
       await this.trackActivity(userId, "PLAN_UPDATE", `User ${user.email} plan updated to ${tier}`, "SUCCESS");
       return user;
@@ -408,7 +408,7 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
       if (data.plan !== undefined) {
         user.plan = data.plan.toUpperCase();
         user.tier = data.plan.toUpperCase();
-        user.analysesLimit = data.plan.toUpperCase() === "FREE" ? 50 : data.plan.toUpperCase() === "PRO" ? 500 : 5000;
+        user.analysesLimit = data.plan.toUpperCase() === "FREE" ? 50 : data.plan.toUpperCase() === "BASIC" ? 200 : 1000;
       }
       console.log(`[Database Transaction] Updated User ${userId}:`, data);
       await this.trackActivity(userId, "USER_UPDATE", `User updated profile settings: ${JSON.stringify(data)}`, "SUCCESS");
