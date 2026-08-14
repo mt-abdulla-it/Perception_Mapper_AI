@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Patch, Delete, Body, Param, HttpException, HttpStatus, UseGuards, Req } from "@nestjs/common";
 
 import { ClerkGuard } from "./clerk.guard";
+import { ApiKeyGuard } from "./api-key.guard";
 
 import { PrismaService } from "./prisma.service";
 import { RateLimiterService } from "./rate-limiter.service";
@@ -8,6 +9,8 @@ import { Roles } from "./roles.decorator";
 import { RolesGuard } from "./roles.guard";
 import { AdminOnlyGuard } from "./admin-only.guard";
 import { TelemetryGateway } from "./telemetry/telemetry.gateway";
+
+const NLP_ENGINE_URL = process.env.NLP_ENGINE_URL || "http://localhost:8000";
 
 @Controller()
 export class AppController {
@@ -49,7 +52,10 @@ export class AppController {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/analyze", {
+      // Apply rate limiting per-user before hitting the NLP engine
+      await this.rateLimiter.checkLimit(req.user.userId);
+
+      const response = await fetch(`${NLP_ENGINE_URL}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -139,7 +145,7 @@ export class AppController {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/analyze/rephrase", {
+      const response = await fetch(`${NLP_ENGINE_URL}/analyze/rephrase`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -265,11 +271,12 @@ export class AppController {
 
   @Get("user/quota")
   @UseGuards(ClerkGuard)
-  getUserQuota() {
+  async getUserQuota(@Req() req: any) {
+    const userInfo = await this.prisma.getUserQuotaInfo(req.user.userId);
     return {
-      tier: "Pro Subscription",
-      limit: "Unlimited",
-      usedThisMonth: 342,
+      tier: userInfo.tier,
+      limit: userInfo.analysesLimit,
+      usedThisMonth: userInfo.analysesUsed,
       activeWorkspaceSeats: 3,
       billingCycleReset: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
     };
@@ -303,12 +310,76 @@ export class AppController {
   }
 
 
+  // Developer API endpoint — secured via X-API-Key header (documented in README)
+  @Post("analyze/developer")
+  @UseGuards(ApiKeyGuard)
+  async analyzeTextDeveloper(
+    @Req() req: any,
+    @Body() body: { text: string; language?: string }
+  ) {
+    if (!body.text || !body.text.trim()) {
+      throw new HttpException("Text content is required for analysis", HttpStatus.BAD_REQUEST);
+    }
 
-  
+    try {
+      const response = await fetch(`${NLP_ENGINE_URL}/analyze`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: body.text }),
+      });
 
+      if (!response.ok) {
+        throw new HttpException(
+          `NLP Engine returned status ${response.status}`,
+          HttpStatus.BAD_GATEWAY
+        );
+      }
 
+      const result = await response.json();
 
+      this.telemetryGateway.broadcastTelemetry("analysis", {
+        userId: req.user.userId,
+        detectedLanguage: result.language || "English",
+        sentimentScore: result.scores?.sentiment || 55,
+        biasIndex: result.scores?.biasIndex || 25,
+        biasesCount: result.biases?.length || 0,
+        textLength: body.text.length,
+        source: "developer-api",
+      });
 
+      return {
+        success: true,
+        source: "FastAPI Live Sidecar",
+        ...result,
+      };
+    } catch (error) {
+      if (error instanceof HttpException) throw error;
+      return {
+        success: false,
+        source: "NestJS Mock Offline Fallback",
+        message: "Python NLP sidecar offline. Returning baseline assessment.",
+        language: "English",
+        scores: {
+          sentiment: 55,
+          objectivity: 75,
+          biasIndex: 25,
+        },
+        tones: [
+          { name: "Informative", score: 65, color: "from-blue-500 to-indigo-500" },
+        ],
+        biases: [
+          {
+            quote: body.text.slice(0, Math.min(body.text.length, 60)) + "...",
+            type: "Offline Mode",
+            description: "FastAPI engine unreachable. Scaffolding fallbacks active.",
+            rephrase: "Ensure the FastAPI service is running locally on port 8000.",
+          },
+        ],
+      };
+    }
+  }
 
   // ADMIN ENDPOINTS
   @Get("admin/users")
