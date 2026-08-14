@@ -487,4 +487,20 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
     }
     throw new Error(`Team with ID ${teamId} not found`);
   }
+
+  async getUserQuotaInfo(userId: string) {
+    const user = this.users.find(u => u.id === userId);
+    if (user) {
+      return {
+        tier: user.tier || "FREE",
+        analysesUsed: user.analysesUsed || 0,
+        analysesLimit: user.analysesLimit || 50,
+      };
+    }
+    return {
+      tier: "FREE",
+      analysesUsed: 0,
+      analysesLimit: 50,
+    };
+  }
 }
