@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/clerk-compat";
+import { useAuth } from "./useAuth";
 
 /**
  * Hook to protect routes.
