@@ -253,25 +253,39 @@ export class AppController {
     return { received: true, event: body.type };
   }
 
-  // Custom User-defined Bias rules endpoint for Team subscribers
+  // Custom User-defined Bias rules endpoint for subscribers
   @Post("rules/custom")
   @UseGuards(ClerkGuard)
   async addCustomBiasRule(
     @Req() req: any,
-    @Body() body: { pattern: string; category: string; rephrase: string }
+    @Body() body: { pattern: string; category: string; description?: string; rephrase: string }
   ) {
     if (!body.pattern || !body.category) {
       throw new HttpException("Pattern and category are required", HttpStatus.BAD_REQUEST);
     }
 
-    console.log(
-      `[Custom Rule Transaction] Saved rule for user ${req.user.userId}: ${body.pattern}`
-    );
+    const rule = await this.prisma.addCustomRule(req.user.userId, {
+      pattern: body.pattern,
+      type: body.category,
+      description: body.description || `Custom rule for ${body.category}`,
+      rephrase: body.rephrase || "",
+    });
 
     return {
       success: true,
-      ruleId: "rule-mock-" + Math.random().toString(36).substr(2, 5),
+      ruleId: rule.id,
       message: "Custom bias parsing rule added successfully.",
+    };
+  }
+
+  @Get("rules/custom")
+  @UseGuards(ClerkGuard)
+  async getCustomBiasRules(@Req() req: any) {
+    const rules = await this.prisma.getCustomRules(req.user.userId);
+    return {
+      success: true,
+      count: rules.length,
+      rules,
     };
   }
 

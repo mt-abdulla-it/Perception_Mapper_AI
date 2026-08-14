@@ -27,6 +27,7 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
   // In-memory high-fidelity database storage for mock/offline execution
   private users: any[] = [];
   private teams: any[] = [];
+  private customRules: any[] = [];
   private activityLogs: any[] = [];
   private userAnalysesCount = 0;
   private policies = {
@@ -502,5 +503,25 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
       analysesUsed: 0,
       analysesLimit: 50,
     };
+  }
+
+  async addCustomRule(userId: string, data: { pattern: string; type: string; description: string; rephrase: string }) {
+    const rule = {
+      id: "rule-" + Math.random().toString(36).substr(2, 9),
+      userId,
+      pattern: data.pattern,
+      type: data.type,
+      description: data.description,
+      rephrase: data.rephrase,
+      createdAt: new Date(),
+    };
+    this.customRules.push(rule);
+    console.log(`[Database Transaction] Custom rule created: ${rule.id} for user ${userId}`);
+    await this.trackActivity(userId, "RULE_CREATE", `Custom bias rule created: ${data.type}`, "SUCCESS");
+    return rule;
+  }
+
+  async getCustomRules(userId: string) {
+    return this.customRules.filter(r => r.userId === userId);
   }
 }
