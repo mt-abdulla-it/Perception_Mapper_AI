@@ -1,4 +1,4 @@
-# Perception Mapper AI.
+# Perception Mapper AI
 
 Perception Mapper AI is an enterprise-grade, high-fidelity cognitive bias, tone, and multilingual sentiment analysis platform. Designed for journalists, content teams, and enterprises, it processes text in **English**, **Tamil (தமிழ்)**, and **Sinhala (සිංහල)** to identify cognitive distortions, deliver progress-metered emotional tone breakdowns, and suggest objective alternative rephrasings in real-time.
 
