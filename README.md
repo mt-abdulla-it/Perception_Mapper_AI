@@ -248,7 +248,7 @@ docker-compose ps
 
 ## 👥 Authors
 
-| Name | Role |
-| :--- | :--- |
-| Suwedha | Software Idea Planner — Concept & Planning |
-| Abdullah | Software Developer — Development & Execution |
+| Name | Role | Responsibilities |
+| :--- | :--- | :--- |
+| **[Suwedha Sivakumar](https://github.com/Suwedha-Sivakumar)** | 💡 Idea Planner | Concept & Planning |
+| **[Abdulla Thaslim](https://github.com/mt-abdulla-it)** | 💻 Software Developer | Development & Execution |
