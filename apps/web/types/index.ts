@@ -101,3 +101,26 @@ export interface WorkspaceTeam {
   createdAt?: string;
 }
 
+export interface HistoryEntry {
+  id: string;
+  inputText: string;
+  detectedLanguage: string;
+  sentimentScore: number;
+  biasIndex: number;
+  objectivity: number;
+  tones: ToneInfo[];
+  biases: BiasPattern[];
+  createdAt: string;
+}
+
+export interface HistoryStats {
+  totalAnalyses: number;
+  avgBiasIndex: number;
+  topBiasType: string;
+  topBiasCount: number;
+  languageDistribution: {
+    name: string;
+    count: number;
+    percentage: number;
+  }[];
+}
