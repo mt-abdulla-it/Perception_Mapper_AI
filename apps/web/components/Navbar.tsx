@@ -34,7 +34,14 @@ export default function Navbar() {
   ];
 
   const homeHref = isSignedIn ? (user?.role === "ADMIN" ? "/admin/dashboard" : "/dashboard") : "/";
-  const navItems = user?.role === "ADMIN" ? [{ name: "Admin Panel", href: "/admin/dashboard" }] : [];
+  const navItems = user?.role === "ADMIN"
+    ? [{ name: "Admin Panel", href: "/admin/dashboard" }]
+    : isSignedIn
+      ? [
+          { name: "Dashboard", href: "/dashboard" },
+          { name: "History", href: "/dashboard/history" },
+        ]
+      : [];
 
   const landingNavItems = [
     { name: "Features", href: "/#features" },
