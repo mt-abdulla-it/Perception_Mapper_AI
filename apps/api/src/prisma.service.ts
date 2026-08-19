@@ -689,4 +689,185 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       orderBy: { createdAt: "desc" },
     });
   }
+
+  /**
+   * Retrieve paginated and filtered analysis timeline for a user
+   */
+  async getTimelineHistory(
+    userId: string,
+    filters: {
+      page?: number;
+      limit?: number;
+      lang?: string;
+      biasType?: string;
+      from?: string;
+      to?: string;
+      search?: string;
+    }
+  ) {
+    const page = Math.max(1, filters.page || 1);
+    const limit = Math.min(50, Math.max(1, filters.limit || 20));
+    const skip = (page - 1) * limit;
+
+    // Build date range filter
+    const dateFilter: any = {};
+    if (filters.from) {
+      dateFilter.gte = new Date(filters.from);
+    }
+    if (filters.to) {
+      const toDate = new Date(filters.to);
+      toDate.setHours(23, 59, 59, 999);
+      dateFilter.lte = toDate;
+    }
+
+    // Build search filter
+    const textFilter = filters.search
+      ? { contains: filters.search, mode: "insensitive" as const }
+      : undefined;
+
+    const where: any = {
+      userId,
+      ...(Object.keys(dateFilter).length > 0 && { createdAt: dateFilter }),
+      ...(textFilter && { inputText: textFilter }),
+    };
+
+    const [total, analyses] = await Promise.all([
+      this.analysis.count({ where }),
+      this.analysis.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+      }),
+    ]);
+
+    // Post-process to apply language and bias type filters on resultJSON
+    let entries = analyses.map((item) => {
+      const res = item.resultJSON as any;
+      return {
+        id: item.id,
+        inputText: item.inputText,
+        detectedLanguage: res?.language || "English",
+        sentimentScore: res?.scores?.sentiment ?? 50,
+        biasIndex: res?.scores?.biasIndex ?? 20,
+        objectivity: res?.scores?.objectivity ?? 80,
+        tones: res?.tones || [],
+        biases: res?.biases || [],
+        createdAt: item.createdAt.toISOString(),
+      };
+    });
+
+    // Apply language filter on the result data
+    if (filters.lang && filters.lang !== "all") {
+      const langMap: Record<string, string> = { en: "English", ta: "Tamil", si: "Sinhala" };
+      const targetLang = langMap[filters.lang] || filters.lang;
+      entries = entries.filter((e) => e.detectedLanguage === targetLang);
+    }
+
+    // Apply bias type filter on the result data
+    if (filters.biasType && filters.biasType !== "all") {
+      entries = entries.filter((e) =>
+        e.biases.some((b: any) => b.type?.toLowerCase().includes(filters.biasType!.toLowerCase()))
+      );
+    }
+
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      entries,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages,
+        hasNext: page < totalPages,
+        hasPrev: page > 1,
+      },
+    };
+  }
+
+  /**
+   * Delete a single analysis entry owned by the user
+   */
+  async deleteAnalysis(userId: string, analysisId: string) {
+    const analysis = await this.analysis.findFirst({
+      where: { id: analysisId, userId },
+    });
+
+    if (!analysis) {
+      throw new Error(`Analysis entry ${analysisId} not found or not owned by user`);
+    }
+
+    await this.analysis.delete({
+      where: { id: analysisId },
+    });
+
+    await this.trackActivity(userId, "ANALYZE", `Deleted analysis entry ${analysisId}`, "SUCCESS");
+    this.logger.log(`[Database Transaction] Deleted analysis ${analysisId} for user ${userId}`);
+
+    return { success: true, id: analysisId };
+  }
+
+  /**
+   * Retrieve aggregate statistics for the user's analysis history
+   */
+  async getHistoryStats(userId: string) {
+    const totalAnalyses = await this.analysis.count({ where: { userId } });
+
+    const analyses = await this.analysis.findMany({
+      where: { userId },
+      select: { resultJSON: true },
+    });
+
+    // Calculate averages and distributions from stored result data
+    let totalBiasIndex = 0;
+    const biasTypeCounts: Record<string, number> = {};
+    const langCounts: Record<string, number> = {};
+
+    for (const a of analyses) {
+      const res = a.resultJSON as any;
+      const biasIndex = res?.scores?.biasIndex ?? 20;
+      totalBiasIndex += biasIndex;
+
+      // Count language occurrences
+      const lang = res?.language || "English";
+      langCounts[lang] = (langCounts[lang] || 0) + 1;
+
+      // Count bias type occurrences
+      const biases = res?.biases || [];
+      for (const b of biases) {
+        if (b.type && b.type !== "Objective Statement" && b.type !== "Offline Mode") {
+          const baseType = b.type.split(" (")[0]; // Strip localized parenthetical
+          biasTypeCounts[baseType] = (biasTypeCounts[baseType] || 0) + 1;
+        }
+      }
+    }
+
+    const avgBiasIndex = totalAnalyses > 0 ? Math.round(totalBiasIndex / totalAnalyses) : 0;
+
+    // Find top bias type
+    let topBiasType = "None detected";
+    let topBiasCount = 0;
+    for (const [type, count] of Object.entries(biasTypeCounts)) {
+      if (count > topBiasCount) {
+        topBiasType = type;
+        topBiasCount = count;
+      }
+    }
+
+    // Build language distribution array
+    const languageDistribution = Object.entries(langCounts).map(([name, count]) => ({
+      name,
+      count,
+      percentage: totalAnalyses > 0 ? Math.round((count / totalAnalyses) * 100) : 0,
+    }));
+
+    return {
+      totalAnalyses,
+      avgBiasIndex,
+      topBiasType,
+      topBiasCount,
+      languageDistribution,
+    };
+  }
 }

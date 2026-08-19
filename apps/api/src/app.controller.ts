@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, HttpException, HttpStatus, UseGuards, Req } from "@nestjs/common";
+import { Controller, Get, Post, Patch, Delete, Body, Param, Query, HttpException, HttpStatus, UseGuards, Req } from "@nestjs/common";
 
 import { ClerkGuard } from "./clerk.guard";
 import { ApiKeyGuard } from "./api-key.guard";
@@ -219,6 +219,65 @@ export class AppController {
       count: history.length,
       history,
     };
+  }
+
+  // Paginated & filtered analysis timeline
+  @Get("history/timeline")
+  @UseGuards(ClerkGuard)
+  async fetchTimeline(
+    @Req() req: any,
+    @Query("page") page?: string,
+    @Query("limit") limit?: string,
+    @Query("lang") lang?: string,
+    @Query("biasType") biasType?: string,
+    @Query("from") from?: string,
+    @Query("to") to?: string,
+    @Query("search") search?: string
+  ) {
+    const userId = req.user.userId;
+    const result = await this.prisma.getTimelineHistory(userId, {
+      page: page ? parseInt(page, 10) : 1,
+      limit: limit ? parseInt(limit, 10) : 20,
+      lang,
+      biasType,
+      from,
+      to,
+      search,
+    });
+    return {
+      success: true,
+      ...result,
+    };
+  }
+
+  // Aggregate history statistics
+  @Get("history/stats")
+  @UseGuards(ClerkGuard)
+  async fetchHistoryStats(@Req() req: any) {
+    const userId = req.user.userId;
+    const stats = await this.prisma.getHistoryStats(userId);
+    return {
+      success: true,
+      ...stats,
+    };
+  }
+
+  // Delete a single analysis entry
+  @Delete("history/:id")
+  @UseGuards(ClerkGuard)
+  async deleteHistoryEntry(
+    @Req() req: any,
+    @Param("id") id: string
+  ) {
+    try {
+      const result = await this.prisma.deleteAnalysis(req.user.userId, id);
+      return { success: true, ...result };
+    } catch (e) {
+      throw new HttpException(
+        "Failed to delete analysis entry: " + e.message,
+        HttpStatus.NOT_FOUND
+      );
+    }
   }
 
   // Stripe Billing Subscription Lifecycle Webhooks
