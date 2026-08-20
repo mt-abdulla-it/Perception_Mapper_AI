@@ -9,8 +9,6 @@ import {
   Zap,
   FileText,
   Download,
-  Mic,
-  ShieldCheck,
   BarChart3,
   Brain,
   Globe,
