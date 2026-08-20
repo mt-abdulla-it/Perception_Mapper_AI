@@ -8,6 +8,7 @@ import LandingHero from "../components/LandingHero";
 import LandingStats from "../components/LandingStats";
 import LandingFeatures from "../components/LandingFeatures";
 import LandingHowItWorks from "../components/LandingHowItWorks";
+import LandingShowcase from "../components/LandingShowcase";
 import LandingPlayground from "../components/LandingPlayground";
 import LandingTestimonials from "../components/LandingTestimonials";
 import LandingPricing from "../components/LandingPricing";
@@ -24,6 +25,7 @@ export default function PerceptionLanding() {
         <LandingStats />
         <LandingFeatures />
         <LandingHowItWorks />
+        <LandingShowcase />
         <LandingPlayground />
         <LandingTestimonials />
         <LandingPricing />
