@@ -16,7 +16,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const port = process.env.PORT || 3010;
+  const port = process.env.PORT || 3001;
   await app.listen(port);
   logger.log(`Perception Mapper AI NestJS Core API running on: http://localhost:${port}/api`);
 }

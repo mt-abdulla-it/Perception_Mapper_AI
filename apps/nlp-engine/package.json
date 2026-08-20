@@ -3,5 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/index.js",
-  "scripts": {}
+  "scripts": {
+    "dev": "uvicorn main:app --reload --port 8000"
+  }
 }
