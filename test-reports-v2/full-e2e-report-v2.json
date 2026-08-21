@@ -1,0 +1,354 @@
+{
+  "project": "Perception Mapper AI",
+  "baseURL": "http://localhost:3009",
+  "generatedAt": "2026-08-20T11:44:31.966Z",
+  "testUser": {
+    "name": "Test User",
+    "email": "testuser_1787226222933@example.com"
+  },
+  "summary": {
+    "totalChecks": 29,
+    "passed": 26,
+    "failed": 2,
+    "partial": 0,
+    "notTestable": 1,
+    "functionalityPercentage": "92.86%",
+    "overallStatus": "FAIL"
+  },
+  "results": [
+    {
+      "number": 1,
+      "name": "Homepage",
+      "input": "http://localhost:3009",
+      "expected": "HTTP success and correct title",
+      "actual": "HTTP=200, title=\"Perception Mapper AI\"",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:43:44.690Z"
+    },
+    {
+      "number": 2,
+      "name": "Showcase Basic",
+      "input": "Click Basic",
+      "expected": "Rephrase Sandbox visible",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:43:47.809Z"
+    },
+    {
+      "number": 3,
+      "name": "Showcase Pro",
+      "input": "Click Pro",
+      "expected": "Bias Network Graph visible",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:43:49.164Z"
+    },
+    {
+      "number": 4,
+      "name": "Preset Selection",
+      "input": "Corporate Launch Announcement",
+      "expected": "Textarea populated",
+      "actual": "Length=89",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:43:49.229Z"
+    },
+    {
+      "number": 5,
+      "name": "Text Analysis",
+      "input": "Analyze preset text",
+      "expected": "Analysis result appears",
+      "actual": "Objectivity Cleanse=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:43:54.996Z"
+    },
+    {
+      "number": 6,
+      "name": "Empty Text Validation",
+      "input": "Submit empty text",
+      "expected": "Button disabled OR validation shown",
+      "actual": "disabled=true, validation=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:43:55.032Z"
+    },
+    {
+      "number": 7,
+      "name": "Custom Text Analysis",
+      "input": "This is obviously a catastrophic disaster!",
+      "expected": "Analysis result appears",
+      "actual": "Result=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:00.387Z"
+    },
+    {
+      "number": 8,
+      "name": "TTS Playback",
+      "input": "Click Acoustic Readout",
+      "expected": "Actual speech/audio state starts",
+      "actual": "{\"ttsState\":{\"started\":true,\"ended\":false},\"buttonText\":\"ACOUSTIC READOUT\"}",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:01.220Z"
+    },
+    {
+      "number": 9,
+      "name": "Contact Page",
+      "input": "/contact",
+      "expected": "Contact page loads",
+      "actual": "HTTP=200, header=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:02.080Z"
+    },
+    {
+      "number": 10,
+      "name": "Contact Validation",
+      "input": "Submit empty form",
+      "expected": "Validation error shown",
+      "actual": "Validation=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:02.630Z"
+    },
+    {
+      "number": 11,
+      "name": "Dashboard Authentication Guard",
+      "input": "/dashboard",
+      "expected": "Unauthenticated user cannot access dashboard",
+      "actual": "http://localhost:3009/sign-in",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:04.428Z"
+    },
+    {
+      "number": 12,
+      "name": "Configuration Authentication Guard",
+      "input": "/configuration",
+      "expected": "Unauthenticated user is redirected",
+      "actual": "http://localhost:3009/sign-in",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:06.410Z"
+    },
+    {
+      "number": 13,
+      "name": "Admin Authentication Guard",
+      "input": "/admin/dashboard",
+      "expected": "Unauthenticated user is redirected",
+      "actual": "http://localhost:3009/admin/sign-in",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:08.210Z"
+    },
+    {
+      "number": 14,
+      "name": "Signup Form",
+      "input": "/sign-up",
+      "expected": "Name/email/password fields exist",
+      "actual": "name=true, email=true, passwordFields=2",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:09.512Z"
+    },
+    {
+      "number": 15,
+      "name": "Signup Data Entry",
+      "input": "{\"name\":\"Test User\",\"email\":\"testuser_1787226222933@example.com\",\"password\":\"Test@12345\",\"confirmPassword\":\"Test@12345\"}",
+      "expected": "All available signup fields populated",
+      "actual": "name=true, email=true, password=true, confirm=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:09.641Z"
+    },
+    {
+      "number": 16,
+      "name": "Signup Submission",
+      "input": "testuser_1787226222933@example.com",
+      "expected": "Actual account creation/authentication evidence",
+      "actual": "{\"beforeURL\":\"http://localhost:3009/sign-up\",\"afterURL\":\"http://localhost:3009/sign-in?registered=true&email=testuser_1787226222933%40example.com\",\"URLChanged\":true,\"authenticatedURL\":false,\"successMessage\":true,\"authChanged\":true}",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:12.745Z"
+    },
+    {
+      "number": 17,
+      "name": "Login Data Entry",
+      "input": "testuser_1787226222933@example.com",
+      "expected": "Credentials entered",
+      "actual": "email=true, password=true",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:14.042Z"
+    },
+    {
+      "number": 18,
+      "name": "Login Authentication",
+      "input": "testuser_1787226222933@example.com",
+      "expected": "Actual authenticated session created",
+      "actual": "{\"beforeURL\":\"http://localhost:3009/sign-in\",\"afterURL\":\"http://localhost:3009/dashboard\",\"authURL\":true,\"authStorageChanged\":true,\"authenticatedUI\":true}",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:17.323Z"
+    },
+    {
+      "number": 19,
+      "name": "Dashboard After Login",
+      "input": "/dashboard",
+      "expected": "Authenticated user can access dashboard",
+      "actual": "http://localhost:3009/dashboard",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:19.452Z"
+    },
+    {
+      "number": 20,
+      "name": "Logout",
+      "input": "Find logout control",
+      "expected": "Logout control exists for authenticated user",
+      "actual": "Logout control not found",
+      "status": "NOT_TESTABLE",
+      "severity": "MEDIUM",
+      "time": "2026-08-20T11:44:19.476Z"
+    },
+    {
+      "number": 21,
+      "name": "Pricing Page",
+      "input": "/pricing",
+      "expected": "Pricing page loads and contains pricing information",
+      "actual": "HTTP=200, length=4858",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:22.365Z"
+    },
+    {
+      "number": 22,
+      "name": "Internal Link Testing",
+      "input": "4 internal links",
+      "expected": "No broken internal links",
+      "actual": "Broken=0",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:27.208Z"
+    },
+    {
+      "number": 23,
+      "name": "Button Inventory",
+      "input": "Scan homepage buttons",
+      "expected": "Buttons can be identified",
+      "actual": "17 buttons",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:28.389Z"
+    },
+    {
+      "number": 24,
+      "name": "Mobile Horizontal Overflow",
+      "input": "390x844",
+      "expected": "No horizontal overflow",
+      "actual": "Overflow=false",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:29.665Z"
+    },
+    {
+      "number": 25,
+      "name": "Tablet Responsive Layout",
+      "input": "768x1024",
+      "expected": "No horizontal overflow",
+      "actual": "Overflow=false",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:30.788Z"
+    },
+    {
+      "number": 26,
+      "name": "Desktop Layout",
+      "input": "1440x900",
+      "expected": "Homepage renders",
+      "actual": "Title=Perception Mapper AI",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:31.966Z"
+    },
+    {
+      "number": 27,
+      "name": "404 Resource Check",
+      "input": "Monitor HTTP responses",
+      "expected": "No 404 responses",
+      "actual": "0 HTTP 404 responses",
+      "status": "PASS",
+      "severity": "",
+      "time": "2026-08-20T11:44:31.966Z"
+    },
+    {
+      "number": 28,
+      "name": "JavaScript Console Errors",
+      "input": "Monitor browser console",
+      "expected": "No JavaScript errors",
+      "actual": "5 errors",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "time": "2026-08-20T11:44:31.966Z"
+    },
+    {
+      "number": 29,
+      "name": "Failed Network Requests",
+      "input": "Monitor requests",
+      "expected": "No failed network requests",
+      "actual": "1 failures",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "time": "2026-08-20T11:44:31.966Z"
+    }
+  ],
+  "bugs": [],
+  "consoleErrors": [
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://localhost:3009/",
+      "time": "2026-08-20T11:43:43.836Z"
+    },
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+      "url": "http://localhost:3009/dashboard/history",
+      "time": "2026-08-20T11:44:25.760Z"
+    },
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+      "url": "http://localhost:3009/dashboard/history",
+      "time": "2026-08-20T11:44:25.760Z"
+    },
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+      "url": "http://localhost:3009/dashboard/history",
+      "time": "2026-08-20T11:44:25.761Z"
+    },
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+      "url": "http://localhost:3009/dashboard/history",
+      "time": "2026-08-20T11:44:25.765Z"
+    }
+  ],
+  "failedRequests": [
+    {
+      "url": "http://localhost:3009/dashboard?_rsc=3y0gy",
+      "method": "GET",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      },
+      "time": "2026-08-20T11:44:27.691Z"
+    }
+  ],
+  "response404s": []
+}

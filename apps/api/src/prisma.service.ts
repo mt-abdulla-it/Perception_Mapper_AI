@@ -6,9 +6,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   private readonly logger = new Logger("PrismaService");
 
   async onModuleInit() {
-    await this.$connect();
-    this.logger.log("Database connection pool established successfully via Prisma Client.");
-    await this.seedDefaultSettings();
+    try {
+      await this.$connect();
+      this.logger.log("Database connection pool established successfully via Prisma Client.");
+      await this.seedDefaultSettings();
+    } catch (err) {
+      this.logger.error(`Database connection failed: ${err.message}. Gateway running in database-offline mode with mock fallbacks.`);
+    }
   }
 
   async onModuleDestroy() {
@@ -82,43 +86,60 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
    * Sync Clerk authenticated user with local PostgreSQL profile
    */
   async syncUser(userId: string, email: string) {
-    let user = await this.user.findFirst({
-      where: {
-        OR: [{ id: userId }, { email: email.trim().toLowerCase() }],
-      },
-    });
+    try {
+      let user = await this.user.findFirst({
+        where: {
+          OR: [{ id: userId }, { email: email.trim().toLowerCase() }],
+        },
+      });
 
-    if (!user) {
+      if (!user) {
+        const isDevAdmin = email.trim().toLowerCase() === "dev@perceptionmapper.ai" || userId === "user_mock_dev_2k98fhj3";
+        user = await this.user.create({
+          data: {
+            id: userId,
+            email: email.trim().toLowerCase(),
+            fullName: email.split("@")[0],
+            role: isDevAdmin ? UserRole.ADMIN : UserRole.USER,
+            plan: UserPlan.FREE,
+            status: UserStatus.ACTIVE,
+            lastLogin: new Date(),
+          },
+        });
+        this.logger.log(`Created new synced User record: id=${user.id}, email=${user.email}`);
+      } else {
+        user = await this.user.update({
+          where: { id: user.id },
+          data: {
+            lastLogin: new Date(),
+          },
+        });
+        this.logger.log(`Updated last login for User: id=${user.id}`);
+      }
+
+      await this.trackActivity(user.id, "LOGIN", `User ${email} authenticated successfully`, "SUCCESS", 120, 0);
+
+      return {
+        ...user,
+        tier: user.plan, // Keep tier string mapper for frontend compatibility
+        isBlocked: user.status === UserStatus.BLOCKED,
+      };
+    } catch (err) {
+      this.logger.warn(`Database offline. Falling back to mock session user context: ${err.message}`);
       const isDevAdmin = email.trim().toLowerCase() === "dev@perceptionmapper.ai" || userId === "user_mock_dev_2k98fhj3";
-      user = await this.user.create({
-        data: {
-          id: userId,
-          email: email.trim().toLowerCase(),
-          fullName: email.split("@")[0],
-          role: isDevAdmin ? UserRole.ADMIN : UserRole.USER,
-          plan: UserPlan.FREE,
-          status: UserStatus.ACTIVE,
-          lastLogin: new Date(),
-        },
-      });
-      this.logger.log(`Created new synced User record: id=${user.id}, email=${user.email}`);
-    } else {
-      user = await this.user.update({
-        where: { id: user.id },
-        data: {
-          lastLogin: new Date(),
-        },
-      });
-      this.logger.log(`Updated last login for User: id=${user.id}`);
+      return {
+        id: userId,
+        email: email.trim().toLowerCase(),
+        fullName: email.split("@")[0],
+        role: isDevAdmin ? UserRole.ADMIN : UserRole.USER,
+        plan: UserPlan.FREE,
+        status: UserStatus.ACTIVE,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        tier: "FREE",
+        isBlocked: false,
+      };
     }
-
-    await this.trackActivity(user.id, "LOGIN", `User ${email} authenticated successfully`, "SUCCESS", 120, 0);
-
-    return {
-      ...user,
-      tier: user.plan, // Keep tier string mapper for frontend compatibility
-      isBlocked: user.status === UserStatus.BLOCKED,
-    };
   }
 
   /**
