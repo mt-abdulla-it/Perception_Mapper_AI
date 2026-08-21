@@ -1013,11 +1013,12 @@ Password: ${TEST_USER.password}
       const beforeStorage =
         await getStorageState(page);
 
-      await signupButton.click();
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle', timeout: 5000 }).catch(() => {}),
+        signupButton.click()
+      ]);
 
       signupSubmitted = true;
-
-      await page.waitForTimeout(3000);
 
       const afterURL =
         page.url();
@@ -1174,9 +1175,10 @@ Password: ${TEST_USER.password}
 
     if (await visible(loginButton)) {
 
-      await loginButton.click();
-
-      await page.waitForTimeout(3000);
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle', timeout: 5000 }).catch(() => {}),
+        loginButton.click()
+      ]);
 
       const loginAfterURL =
         page.url();
@@ -1314,7 +1316,7 @@ Password: ${TEST_USER.password}
 
       // Click Pay
       await page.click('button:has-text("Authorize Subscription Pay")');
-      await page.waitForTimeout(4500); // Wait for mock Stripe webhook simulation
+      await page.locator('text=BIOMETRIC SIGNALS').first().waitFor({ state: 'visible', timeout: 8000 }).catch(() => {});
       await shot(page, 'f20_1-checkout-basic-success');
 
       // Verify upgraded dashboard view (Basic tier shows BIOMETRIC SIGNALS tab)
@@ -1351,7 +1353,7 @@ Password: ${TEST_USER.password}
 
       // Click Pay
       await page.click('button:has-text("Authorize Subscription Pay")');
-      await page.waitForTimeout(4500); // Wait for mock Stripe webhook simulation
+      await page.locator('text=Enterprise OS Telemetry').first().waitFor({ state: 'visible', timeout: 8000 }).catch(() => {});
       await shot(page, 'f20_2-checkout-pro-success');
 
       // Verify upgraded dashboard view
