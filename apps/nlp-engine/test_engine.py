@@ -8,6 +8,7 @@ Tests for the core analysis engine covering:
 - Edge cases (empty strings, long text, mixed language)
 """
 
+# pyrefly: ignore [missing-import]
 import pytest
 from engine import analyze_perception, BIAS_DICTIONARIES, TONE_DICTIONARIES
 

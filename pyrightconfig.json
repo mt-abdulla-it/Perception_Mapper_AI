@@ -1,0 +1,8 @@
+{
+  "venvPath": ".",
+  "venv": "apps/nlp-engine/venv",
+  "extraPaths": [
+    "apps/nlp-engine",
+    "apps/nlp-engine/venv/lib/python3.14/site-packages"
+  ]
+}
