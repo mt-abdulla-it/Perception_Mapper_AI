@@ -136,6 +136,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
         status: UserStatus.ACTIVE,
         createdAt: new Date(),
         updatedAt: new Date(),
+        lastLogin: new Date(),
         tier: "FREE",
         isBlocked: false,
       };
