@@ -129,7 +129,7 @@ function FreeTierPreview() {
         <span className="block text-[9px] font-extrabold text-cyan-400 uppercase tracking-widest">
           Text Input Console
         </span>
-        <div className="relative rounded-xl border border-slate-800 bg-slate-950/80 p-4 overflow-hidden">
+        <div className="relative rounded-xl glass-card p-4 overflow-hidden shadow-inner">
           <p className="text-xs text-slate-400 font-mono leading-relaxed">
             <span className="text-slate-300">The development team</span>{" "}
             <span className="border-b border-dashed border-amber-500/60 text-amber-300">absolutely</span>{" "}
@@ -150,7 +150,8 @@ function FreeTierPreview() {
 
       {/* Score Cards */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-3 text-center space-y-2">
+        <div className="rounded-xl glass-card p-3 text-center space-y-2 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
           <span className="block text-[8px] font-extrabold text-slate-500 uppercase tracking-widest">Objectivity</span>
           <span className="text-xl font-black text-emerald-400">{objectivity}%</span>
           <div className="h-1 w-full bg-slate-900 rounded-full overflow-hidden">
@@ -162,7 +163,8 @@ function FreeTierPreview() {
             />
           </div>
         </div>
-        <div className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-3 text-center space-y-2">
+        <div className="rounded-xl glass-card p-3 text-center space-y-2 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
           <span className="block text-[8px] font-extrabold text-slate-500 uppercase tracking-widest">Sentiment</span>
           <span className="text-xl font-black text-indigo-400">{sentiment}%</span>
           <div className="h-1 w-full bg-slate-900 rounded-full overflow-hidden">
@@ -174,7 +176,8 @@ function FreeTierPreview() {
             />
           </div>
         </div>
-        <div className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-3 text-center space-y-2">
+        <div className="rounded-xl glass-card p-3 text-center space-y-2 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
           <span className="block text-[8px] font-extrabold text-slate-500 uppercase tracking-widest">Bias Index</span>
           <span className="text-xl font-black text-amber-400">{biasIndex}%</span>
           <div className="h-1 w-full bg-slate-900 rounded-full overflow-hidden">
@@ -252,7 +255,7 @@ function BasicTierPreview() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.12 }}
-                className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-3.5 space-y-2"
+                className="rounded-xl glass-card p-3.5 space-y-2"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
@@ -270,11 +273,11 @@ function BasicTierPreview() {
               </motion.div>
             ))}
             <div className="flex space-x-2">
-              <button className="flex-1 py-2 rounded-lg border border-slate-800/60 bg-slate-950/60 text-[9px] font-extrabold text-slate-400 uppercase tracking-widest hover:text-white hover:border-slate-700 transition flex items-center justify-center space-x-1.5">
+              <button className="flex-1 py-2 rounded-lg glass-card text-[9px] font-extrabold text-slate-400 uppercase tracking-widest hover:text-white hover:border-slate-700 transition flex items-center justify-center space-x-1.5">
                 <Download className="h-3 w-3" />
                 <span>Export CSV</span>
               </button>
-              <button className="flex-1 py-2 rounded-lg border border-slate-800/60 bg-slate-950/60 text-[9px] font-extrabold text-slate-400 uppercase tracking-widest hover:text-white hover:border-slate-700 transition flex items-center justify-center space-x-1.5">
+              <button className="flex-1 py-2 rounded-lg glass-card text-[9px] font-extrabold text-slate-400 uppercase tracking-widest hover:text-white hover:border-slate-700 transition flex items-center justify-center space-x-1.5">
                 <FileText className="h-3 w-3" />
                 <span>Export PDF</span>
               </button>
@@ -295,7 +298,7 @@ function BasicTierPreview() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-3.5 flex items-center justify-between"
+                className="rounded-xl glass-card p-3.5 flex items-center justify-between"
               >
                 <div className="flex items-center space-x-3">
                   <div className={`w-2 h-2 rounded-full ${
@@ -372,14 +375,15 @@ function ProTierPreview() {
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Bias Network Graph */}
-        <div className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-4 space-y-2.5">
+        <div className="rounded-xl glass-card p-4 space-y-2.5 relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-pink-500/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
           <div className="flex items-center space-x-1.5">
             <Network className="h-3.5 w-3.5 text-pink-400" />
             <span className="text-[9px] font-extrabold text-pink-400 uppercase tracking-widest">
               Bias Network Graph
             </span>
           </div>
-          <div className="relative w-full aspect-[16/10] rounded-lg bg-slate-950/80 border border-slate-900/60 overflow-hidden">
+          <div className="relative w-full aspect-[16/10] rounded-lg bg-slate-950/80 border border-white/5 overflow-hidden shadow-inner">
             {/* Ambient glow */}
             <div className="absolute top-1/4 left-1/3 w-20 h-20 rounded-full bg-pink-500/5 blur-2xl pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 w-16 h-16 rounded-full bg-purple-500/5 blur-2xl pointer-events-none" />
@@ -446,7 +450,7 @@ function ProTierPreview() {
         {/* TTS + Custom Rules */}
         <div className="space-y-4">
           {/* TTS Waveform */}
-          <div className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-4 space-y-3">
+          <div className="rounded-xl glass-card p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-1.5">
                 <Volume2 className="h-3.5 w-3.5 text-indigo-400" />
@@ -476,7 +480,7 @@ function ProTierPreview() {
           </div>
 
           {/* Custom Rules Console */}
-          <div className="rounded-xl border border-slate-800/60 bg-slate-950/60 p-4 space-y-3">
+          <div className="rounded-xl glass-card p-4 space-y-3">
             <div className="flex items-center space-x-1.5">
               <Settings className="h-3.5 w-3.5 text-emerald-400" />
               <span className="text-[9px] font-extrabold text-emerald-400 uppercase tracking-widest">
@@ -512,7 +516,7 @@ function ProTierPreview() {
       </div>
 
       {/* WebSocket Telemetry Bar */}
-      <div className="rounded-xl border border-slate-800/60 bg-slate-950/80 px-4 py-2.5 flex items-center justify-between">
+      <div className="rounded-xl glass-card px-4 py-2.5 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-[8px] font-extrabold text-slate-500 uppercase tracking-widest">
@@ -571,23 +575,32 @@ export default function LandingShowcase() {
         transition={{ duration: 0.5, delay: 0.15 }}
         className="flex justify-center"
       >
-        <div className="inline-flex items-center p-1.5 rounded-2xl border border-slate-800/60 bg-slate-950/60 backdrop-blur-md gap-1.5">
+        <div className="inline-flex items-center p-1.5 rounded-2xl glass-panel gap-1.5">
           {TIERS.map((tier) => {
             const isActive = activeTier === tier.key;
             return (
               <button
                 key={tier.key}
                 onClick={() => setActiveTier(tier.key)}
-                className={`relative flex items-center space-x-2 px-5 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-widest transition-all duration-300 ${
+                className={`relative flex items-center justify-center px-5 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-widest transition-all duration-300 overflow-hidden ${
                   isActive
-                    ? `bg-gradient-to-r ${tier.glowFrom} ${tier.glowTo} text-white shadow-lg`
-                    : "text-slate-500 hover:text-slate-300 hover:bg-slate-900/40"
+                    ? "text-white shadow-lg shadow-indigo-500/20"
+                    : "text-slate-500 hover:text-white hover:bg-white/5"
                 }`}
               >
-                {tier.icon}
-                <span>{tier.label}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="active-tier"
+                    className={`absolute inset-0 bg-gradient-to-r ${tier.glowFrom} ${tier.glowTo} opacity-100 z-0`}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center space-x-2">
+                  {tier.icon}
+                  <span>{tier.label}</span>
+                </span>
                 {tier.key === "PRO" && !isActive && (
-                  <span className="absolute -top-1.5 -right-1.5 px-1.5 py-0.5 text-[6px] font-black uppercase bg-pink-500 text-white rounded-full leading-none tracking-wider">
+                  <span className="absolute -top-1.5 -right-1.5 px-1.5 py-0.5 text-[6px] font-black uppercase bg-pink-500 text-white rounded-full leading-none tracking-wider z-10">
                     ★
                   </span>
                 )}
@@ -604,8 +617,8 @@ export default function LandingShowcase() {
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.25 }}
       >
-        <Card className={`relative overflow-hidden border-slate-800/60 bg-slate-950/40 backdrop-blur-md p-6 md:p-8 shadow-2xl transition-shadow duration-500 ${
-          activeTier === "PRO" ? "shadow-pink-500/5" : activeTier === "BASIC" ? "shadow-purple-500/5" : "shadow-cyan-500/5"
+        <Card className={`relative overflow-hidden glass-panel p-6 md:p-8 shadow-2xl transition-shadow duration-500 ${
+          activeTier === "PRO" ? "shadow-pink-500/10 neon-glow-pink" : activeTier === "BASIC" ? "shadow-purple-500/10 neon-glow-purple" : "shadow-cyan-500/10 neon-glow-indigo"
         }`} hoverEffect={false}>
           {/* Top accent line */}
           <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r ${activeTierConfig.glowFrom} ${activeTierConfig.glowTo} opacity-40`} />
