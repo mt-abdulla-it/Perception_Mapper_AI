@@ -1,0 +1,38 @@
+{
+  "admin": {
+    "title": "Perception Mapper - Admin Control Center",
+    "subTitle": "Configure global heuristics, manage organization nodes, audit activities and inspect pipeline operations."
+  },
+  "team": {
+    "title": "Team Workspace",
+    "stats": {
+      "total": "Total Teams",
+      "active": "Active Members",
+      "pending": "Pending Invites",
+      "activity": "Workspace Activity"
+    },
+    "table": {
+      "name": "Team Name",
+      "lead": "Team Lead",
+      "members": "Members",
+      "tier": "Tier",
+      "status": "Status",
+      "created": "Created",
+      "actions": "Actions",
+      "deleteConfirm": "Are you sure you want to delete this team?"
+    },
+    "form": {
+      "create": "Create New Team",
+      "namePlaceholder": "Team Name",
+      "descPlaceholder": "Description (optional)",
+      "leadPlaceholder": "Select Team Lead (optional)",
+      "maxPlaceholder": "Max Members",
+      "submit": "Create Team",
+      "reset": "Reset Form"
+    },
+    "activity": {
+      "title": "Workspace Activity Feed",
+      "empty": "No recent team activities recorded."
+    }
+  }
+}
