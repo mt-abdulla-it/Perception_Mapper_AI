@@ -46,7 +46,7 @@ export default function LandingCTA({ onSignUp }: LandingCTAProps) {
           whileTap={{ scale: 0.98 }}
           className="flex items-center justify-center space-x-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white rounded-xl px-8 py-3.5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-indigo-600/20 transition duration-300 relative z-10"
         >
-          <span>Establish Portal Handshake</span>
+          <span>Start Analyzing Text</span>
           <ArrowRight className="h-4 w-4 ml-1" />
         </motion.button>
       </motion.div>
