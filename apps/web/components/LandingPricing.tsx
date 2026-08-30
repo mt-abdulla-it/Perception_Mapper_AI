@@ -66,10 +66,10 @@ export default function LandingPricing() {
     <div id="pricing" className="w-full max-w-5xl mx-auto py-16 space-y-12 relative z-10 select-none">
       <div className="text-center space-y-3">
         <h3 className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-wider">
-          Cognitive Node Tiers & Pricing
+          Plans & Pricing
         </h3>
         <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
-          Choose the optimal linguistic mapping node allocation for your workspace.
+          Choose the plan that fits your team's needs.
         </p>
       </div>
 

@@ -7,22 +7,22 @@ import { Globe, Mic, Cpu, Layers, Sparkles, ShieldCheck } from "lucide-react";
 
 export default function LandingFeatures() {
   const list = [
-    { title: "Multilingual Cognitive Engine", desc: "Scan and decrypt text sentiments dynamically in English, Tamil, and Sinhala.", icon: <Globe className="h-5 w-5" />, glow: "hover:shadow-indigo-500/10 hover:border-indigo-500/30", text: "text-indigo-400" },
-    { title: "Speech Acoustic Analyzer", desc: "Integrated voice-to-text recording scans with native neural audio voice readouts.", icon: <Mic className="h-5 w-5" />, glow: "hover:shadow-purple-500/10 hover:border-purple-500/30", text: "text-purple-400" },
-    { title: "Image Optical OCR Scanner", desc: "Extract layouts from border logs declarations and logistics cargo manifest scans.", icon: <Cpu className="h-5 w-5" />, glow: "hover:shadow-pink-500/10 hover:border-pink-500/30", text: "text-pink-400" },
-    { title: "Custom Overrides policies", desc: "Persist enterprise cognitive rules policies with customizable regex patterns.", icon: <Layers className="h-5 w-5" />, glow: "hover:shadow-blue-500/10 hover:border-blue-500/30", text: "text-blue-400" },
-    { title: "Linguistic Bias Cleanser", desc: "One-click clean substitutions rephraser purges emotional or subjective phrasing.", icon: <Sparkles className="h-5 w-5" />, glow: "hover:shadow-cyan-500/10 hover:border-cyan-500/30", text: "text-cyan-400" },
-    { title: "RBAC Security overlays", desc: "Strict administrative guards audit live transactions securely with SSL protection.", icon: <ShieldCheck className="h-5 w-5" />, glow: "hover:shadow-emerald-500/10 hover:border-emerald-500/30", text: "text-emerald-400" }
+    { title: "Multilingual Analysis", desc: "Analyze text sentiment and cognitive bias in English, Tamil, and Sinhala.", icon: <Globe className="h-5 w-5" />, glow: "hover:shadow-indigo-500/10 hover:border-indigo-500/30", text: "text-indigo-400" },
+    { title: "Voice Input & Readout", desc: "Record speech for instant transcription and listen to cleansed outputs via TTS.", icon: <Mic className="h-5 w-5" />, glow: "hover:shadow-purple-500/10 hover:border-purple-500/30", text: "text-purple-400" },
+    { title: "Image OCR Scanner", desc: "Extract and analyze text from images, documents, and scanned files.", icon: <Cpu className="h-5 w-5" />, glow: "hover:shadow-pink-500/10 hover:border-pink-500/30", text: "text-pink-400" },
+    { title: "Custom Bias Rules", desc: "Define custom regex patterns and classification rules to tailor scans to your needs.", icon: <Layers className="h-5 w-5" />, glow: "hover:shadow-blue-500/10 hover:border-blue-500/30", text: "text-blue-400" },
+    { title: "One-Click Rephrasing", desc: "Instantly generate objective alternatives in journalistic, empathetic, or professional tones.", icon: <Sparkles className="h-5 w-5" />, glow: "hover:shadow-cyan-500/10 hover:border-cyan-500/30", text: "text-cyan-400" },
+    { title: "Role-Based Access Control", desc: "Secure your workspace with admin guards, API key authentication, and audit logging.", icon: <ShieldCheck className="h-5 w-5" />, glow: "hover:shadow-emerald-500/10 hover:border-emerald-500/30", text: "text-emerald-400" }
   ];
 
   return (
     <div id="features" className="w-full max-w-6xl mx-auto py-16 space-y-10 relative z-10 select-none">
       <div className="text-center space-y-3 max-w-2xl mx-auto">
         <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-          State-of-the-Art Multimodal Features
+          Powerful Multimodal Features
         </h3>
         <p className="text-xs text-slate-400">
-          Decipher, evaluate, and correct cognitive bias risk parameters across multilingual digital channels.
+          Detect, evaluate, and correct cognitive bias across multilingual text, voice, and image inputs.
         </p>
       </div>
 

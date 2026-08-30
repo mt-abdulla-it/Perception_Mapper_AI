@@ -262,7 +262,7 @@ function BasicTierPreview() {
                     <span className="text-[9px] font-extrabold uppercase tracking-widest text-purple-400">
                       {tone.name}
                     </span>
-                    <Badge variant="success" className="text-[7px] px-1.5 py-0.5">{tone.score}% Match</Badge>
+                    <Badge variant="success" className="text-[9px] px-1.5 py-0.5">{tone.score}% Match</Badge>
                   </div>
                   <button className="text-[8px] font-bold text-slate-500 hover:text-white uppercase tracking-wider transition flex items-center space-x-1">
                     <Play className="h-2.5 w-2.5" />
@@ -311,7 +311,7 @@ function BasicTierPreview() {
                     <>
                       <Badge
                         variant={item.bias > 50 ? "error" : "success"}
-                        className="text-[7px] px-1.5 py-0.5"
+                        className="text-[9px] px-1.5 py-0.5"
                       >
                         Bias: {item.bias}%
                       </Badge>
@@ -499,9 +499,14 @@ function ProTierPreview() {
                 >
                   <div className="space-y-0.5 truncate flex-1 min-w-0 mr-2">
                     <code className="block text-[9px] text-slate-400 font-mono truncate">{rule.pattern}</code>
-                    <span className="text-[7px] font-extrabold text-slate-600 uppercase tracking-widest">{rule.type}</span>
+                    <span className="text-[9px] font-extrabold text-slate-600 uppercase tracking-widest">{rule.type}</span>
                   </div>
-                  <div className={`w-7 h-4 rounded-full flex items-center px-0.5 transition-colors cursor-pointer ${
+                  <div
+                    role="switch"
+                    aria-checked={rule.active}
+                    aria-label={`Toggle ${rule.type} rule`}
+                    tabIndex={0}
+                    className={`w-7 h-4 rounded-full flex items-center px-0.5 transition-colors cursor-pointer ${
                     rule.active ? "bg-emerald-500/30 justify-end" : "bg-slate-800 justify-start"
                   }`}>
                     <div className={`w-3 h-3 rounded-full transition-colors ${
@@ -575,13 +580,16 @@ export default function LandingShowcase() {
         transition={{ duration: 0.5, delay: 0.15 }}
         className="flex justify-center"
       >
-        <div className="inline-flex items-center p-1.5 rounded-2xl glass-panel gap-1.5">
+        <div className="inline-flex items-center p-1.5 rounded-2xl glass-panel gap-1.5" role="tablist" aria-label="Subscription tier selector">
           {TIERS.map((tier) => {
             const isActive = activeTier === tier.key;
             return (
               <button
                 key={tier.key}
                 onClick={() => setActiveTier(tier.key)}
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`tier-panel-${tier.key}`}
                 className={`relative flex items-center justify-center px-5 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-widest transition-all duration-300 overflow-hidden ${
                   isActive
                     ? "text-white shadow-lg shadow-indigo-500/20"
@@ -640,7 +648,7 @@ export default function LandingShowcase() {
             </div>
             <Badge
               variant="info"
-              className={`text-[7px] px-2 py-0.5 ${
+              className={`text-[9px] px-2 py-0.5 ${
                 activeTier === "PRO"
                   ? "bg-pink-950/40 text-pink-300 border-pink-800/40"
                   : activeTier === "BASIC"
@@ -660,6 +668,9 @@ export default function LandingShowcase() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3 }}
+              role="tabpanel"
+              id={`tier-panel-${activeTier}`}
+              aria-label={`${activeTierConfig.label} tier preview`}
             >
               {activeTier === "FREE" && <FreeTierPreview />}
               {activeTier === "BASIC" && <BasicTierPreview />}

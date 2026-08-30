@@ -33,11 +33,11 @@ export default function LandingCTA({ onSignUp }: LandingCTAProps) {
         <div className="absolute bottom-0 left-0 w-[150px] h-[150px] rounded-full bg-cyan-500/10 blur-[30px] pointer-events-none" />
         
         <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none text-white max-w-xl">
-          Secure Your Organizational Perception Integrity Today
+          Start Writing With Clarity and Confidence
         </h3>
         
         <p className="text-xs md:text-sm text-slate-300 max-w-md leading-relaxed font-semibold">
-          Establish automated safety override policies to evaluate sentiments and cleanse cognitive biases instantly across multilingual communication nodes.
+          Detect cognitive biases, receive objective rephrasing suggestions, and ensure balanced multilingual communication — all in one platform.
         </p>
 
         <motion.button

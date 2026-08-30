@@ -35,10 +35,10 @@ export default function LandingStats() {
   }, []);
 
   const stats = [
-    { label: "Active Enterprise Users", val: `${users.toLocaleString()}+`, color: "text-indigo-400" },
-    { label: "AI Transactions Dispatched", val: `${analyses.toLocaleString()}+`, color: "text-purple-400" },
-    { label: "Neural API Requests", val: `${apiCalls}M+`, color: "text-cyan-400" },
-    { label: "Firewall Node Uptime", val: `${uptime}%`, color: "text-emerald-400" }
+    { label: "Active Users", val: `${users.toLocaleString()}+`, color: "text-indigo-400" },
+    { label: "Texts Analyzed", val: `${analyses.toLocaleString()}+`, color: "text-purple-400" },
+    { label: "API Requests Served", val: `${apiCalls}M+`, color: "text-cyan-400" },
+    { label: "Platform Uptime", val: `${uptime}%`, color: "text-emerald-400" }
   ];
 
   return (

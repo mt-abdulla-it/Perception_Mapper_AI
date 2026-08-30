@@ -81,7 +81,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             {isSignedIn ? (
               <div ref={menuRef} className="relative">
-                <button onClick={() => setMenuOpen(!menuOpen)} className="flex items-center space-x-2 p-1 rounded-xl bg-slate-900/40 hover:bg-slate-900/80 border border-slate-800/80 transition duration-300 cursor-pointer">
+                <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Open user menu" className="flex items-center space-x-2 p-1 rounded-xl bg-slate-900/40 hover:bg-slate-900/80 border border-slate-800/80 transition duration-300 cursor-pointer">
                   <div className={`w-8 h-8 rounded-full border overflow-hidden bg-slate-900 flex items-center justify-center shrink-0 ${
                     user?.tier === "PRO" ? "border-pink-500/40" : user?.tier === "BASIC" ? "border-purple-500/40" : "border-cyan-500/40"
                   }`}>
@@ -201,7 +201,7 @@ export default function Navbar() {
               </div>
             )}
 
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-900/50 transition" aria-label="Toggle menu">
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-900/50 transition" aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {mobileOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
               </svg>

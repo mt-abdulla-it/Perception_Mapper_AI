@@ -6,9 +6,9 @@ import { Card } from "@perception-mapper/ui";
 
 export default function LandingTestimonials() {
   const reviews = [
-    { text: "“Perception Mapper completely revolutionized how we monitor language objectivity inside our global customer reports.”", name: "Astraea Vance", role: "VP of Product", company: "Perception AI", avatar: "https://ui-avatars.com/api/?name=Astraea+Vance&background=4f46e5&color=fff" },
-    { text: "“The OCR manifest scans accuracy speed saved our border verification team hundreds of operational hours monthly.”", name: "Gabriel Thorne", role: "Lead Systems Auditor", company: "Global Logistics", avatar: "https://ui-avatars.com/api/?name=Gabriel+Thorne&background=3b0764&color=fff" },
-    { text: "“The ability to persist custom rules is extremely powerful. We easily set up safety compliance criteria in minutes.”", name: "Celeste Sterling", role: "Information Security Director", company: "Sterling Corp", avatar: "https://ui-avatars.com/api/?name=Celeste+Sterling&background=0284c7&color=fff" }
+    { text: "“Perception Mapper transformed how our editorial team reviews content for objectivity. We catch biases we’d never notice manually.”", name: "Arjun Mehta", role: "Head of Content", company: "MediaWorks Digital", avatar: "https://ui-avatars.com/api/?name=Arjun+Mehta&background=4f46e5&color=fff" },
+    { text: "“The multilingual support is a game-changer. Analyzing Tamil and Sinhala content alongside English in one platform saves us hours.”", name: "Priya Ramanathan", role: "Localization Lead", company: "LangBridge Solutions", avatar: "https://ui-avatars.com/api/?name=Priya+Ramanathan&background=3b0764&color=fff" },
+    { text: "“Custom bias rules let us enforce our editorial standards automatically. The rephrase suggestions are surprisingly accurate.”", name: "David Chen", role: "Quality Assurance Manager", company: "Newsroom Analytics", avatar: "https://ui-avatars.com/api/?name=David+Chen&background=0284c7&color=fff" }
   ];
 
   const [active, setActive] = useState(0);
@@ -24,9 +24,9 @@ export default function LandingTestimonials() {
     <div id="testimonials" className="w-full max-w-4xl mx-auto py-16 space-y-8 relative z-10 select-none">
       <div className="text-center space-y-3">
         <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-          Endorsed by Security Experts
+          Trusted by Content Teams
         </h3>
-        <p className="text-xs text-slate-400">Hear from leading organizations optimizing cognitive compliance feeds</p>
+        <p className="text-xs text-slate-400">See how teams use Perception Mapper to improve content objectivity</p>
       </div>
 
       <div className="relative h-44 flex items-center justify-center">

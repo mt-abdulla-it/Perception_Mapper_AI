@@ -6,18 +6,18 @@ import { CheckCircle, ShieldAlert, Cpu } from "lucide-react";
 
 export default function LandingHowItWorks() {
   const steps = [
-    { title: "1. Secure Handshake Input", desc: "Type statements, record microphone presets, or drop cargo manifests image files.", icon: <Cpu className="h-5 w-5" />, color: "text-indigo-400 border-indigo-500/20 bg-indigo-950/40" },
-    { title: "2. Heuristics Cognitive Scan", desc: "Multi-layered parsing models isolate sentiment tone weights and cognitive risk.", icon: <ShieldAlert className="h-5 w-5" />, color: "text-purple-400 border-purple-500/20 bg-purple-950/40" },
-    { title: "3. Clean Rephrased Substitute", desc: "Deploy policy overrides to obtain clean balanced statements instantly.", icon: <CheckCircle className="h-5 w-5" />, color: "text-cyan-400 border-cyan-500/20 bg-cyan-950/40" }
+    { title: "1. Enter Your Text", desc: "Type a statement, record via microphone, or upload an image for OCR extraction.", icon: <Cpu className="h-5 w-5" />, color: "text-indigo-400 border-indigo-500/20 bg-indigo-950/40" },
+    { title: "2. AI Analyzes Bias", desc: "Multi-layered NLP models detect sentiment, tone, and cognitive bias patterns.", icon: <ShieldAlert className="h-5 w-5" />, color: "text-purple-400 border-purple-500/20 bg-purple-950/40" },
+    { title: "3. Get Clean Output", desc: "Receive objective, balanced rephrasings you can use immediately.", icon: <CheckCircle className="h-5 w-5" />, color: "text-cyan-400 border-cyan-500/20 bg-cyan-950/40" }
   ];
 
   return (
     <div id="how-it-works" className="w-full max-w-5xl mx-auto py-16 space-y-12 relative z-10 select-none">
       <div className="text-center space-y-3">
         <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-          Neural Security Lifecycle Workflow
+          How It Works
         </h3>
-        <p className="text-xs text-slate-400">Three modular stages ensuring objective linguistic analysis cycles</p>
+        <p className="text-xs text-slate-400">Three simple steps to analyze and cleanse cognitive bias from your text</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
