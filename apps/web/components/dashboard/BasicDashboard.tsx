@@ -90,7 +90,7 @@ function LockedCard({ title, desc, badge, onClick }: { title: string; desc: stri
         onClick={onClick}
         className="w-full mt-6 py-2 bg-slate-900 hover:bg-indigo-900/40 border border-slate-800 hover:border-indigo-500/30 text-white rounded-xl text-[10px] font-bold transition duration-300 flex items-center justify-center space-x-1"
       >
-        <span>Upgrade Node to Unblock</span>
+        <span>Upgrade to Unlock</span>
         <Cpu className="h-3 w-3" />
       </button>
     </div>

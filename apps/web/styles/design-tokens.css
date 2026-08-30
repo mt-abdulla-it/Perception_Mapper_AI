@@ -1,28 +1,20 @@
 /* apps/web/styles/design-tokens.css */
 :root {
-  /* Primary gradient colors (teal to purple) */
+  /* Primary gradient colors */
   --color-primary-h: 220;
   --color-primary-s: 90%;
   --color-primary-l: 55%;
   --color-primary: hsl(var(--color-primary-h) var(--color-primary-s) var(--color-primary-l));
-  --color-primary-foreground: #111111;
-
-  /* Background and surface */
-  --color-background: hsl(0 0% 100%);
-  --color-surface: hsl(0 0% 96%);
-  --color-surface-glass: rgba(0, 0, 0, 0.04);
-
-  /* Dark mode overrides */
-.dark {
   --color-primary-foreground: #ffffff;
-  --color-background: hsl(230 10% 12%);
-  --color-surface: hsl(230 15% 18%);
+
+  /* Background and surface (dark-first since app is dark-only) */
+  --color-background: 230 10% 12%;
+  --color-surface: 230 15% 18%;
   --color-surface-glass: rgba(255, 255, 255, 0.08);
-}
 
   --radius: 0.75rem;
   --spacing-unit: 0.5rem;
-  --font-family: "Inter", system-ui, sans-serif;
+  --font-family: "Outfit", system-ui, sans-serif;
 }
 
 html, body {
@@ -40,10 +32,4 @@ html, body {
 .glass {
   background: var(--color-surface-glass);
   backdrop-filter: blur(12px);
-}
-.rounded {
-  border-radius: var(--radius);
-}
-.transition {
-  transition: all 0.2s ease-in-out;
 }
