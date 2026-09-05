@@ -1,0 +1,318 @@
+{
+  "project": "Perception Mapper AI",
+  "baseUrl": "http://localhost:3009",
+  "testUser": {
+    "username": "testuser_1787225809507",
+    "email": "testuser_1787225809507@example.com"
+  },
+  "summary": {
+    "total": 29,
+    "passed": 26,
+    "failed": 2,
+    "partial": 0,
+    "notTestable": 1,
+    "functionalityPercentage": "92.86%"
+  },
+  "results": [
+    {
+      "number": 1,
+      "name": "Landing Page Load",
+      "input": "http://localhost:3009",
+      "expected": "Homepage loads successfully",
+      "actual": "URL=http://localhost:3009/, Title=\"Perception Mapper AI\"",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:36:51.275Z"
+    },
+    {
+      "number": 2,
+      "name": "Navbar Showcase Navigation",
+      "input": "Click Showcase",
+      "expected": "Showcase becomes visible",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:36:52.617Z"
+    },
+    {
+      "number": 3,
+      "name": "Showcase Basic Tab",
+      "input": "Click Basic",
+      "expected": "Rephrase Sandbox visible",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:36:53.503Z"
+    },
+    {
+      "number": 4,
+      "name": "Showcase Pro Tab",
+      "input": "Click Pro",
+      "expected": "Bias Network Graph visible",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:36:54.343Z"
+    },
+    {
+      "number": 5,
+      "name": "Playground Preset Selection",
+      "input": "Corporate Launch Announcement",
+      "expected": "Preset text loaded",
+      "actual": "Text length=89",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:36:54.948Z"
+    },
+    {
+      "number": 6,
+      "name": "Text Analysis",
+      "input": "Analyze preset text",
+      "expected": "Objectivity Cleanse appears",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:00.317Z"
+    },
+    {
+      "number": 7,
+      "name": "Empty Text Validation",
+      "input": "Empty textarea",
+      "expected": "Button disabled or validation shown",
+      "actual": "Disabled=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:00.854Z"
+    },
+    {
+      "number": 8,
+      "name": "Custom Text Analysis",
+      "input": "This is obviously a catastrophic disaster!",
+      "expected": "Analysis result appears",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:06.357Z"
+    },
+    {
+      "number": 9,
+      "name": "Text To Speech",
+      "input": "Click Acoustic Readout",
+      "expected": "Audio state begins",
+      "actual": "Streaming=false",
+      "status": "FAIL",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:07.730Z"
+    },
+    {
+      "number": 10,
+      "name": "Contact Page",
+      "input": "/contact",
+      "expected": "Contact page renders",
+      "actual": "Loaded=true, Header=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:08.563Z"
+    },
+    {
+      "number": 11,
+      "name": "Contact Empty Validation",
+      "input": "Submit empty form",
+      "expected": "Validation error appears",
+      "actual": "Visible=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:09.411Z"
+    },
+    {
+      "number": 12,
+      "name": "Dashboard Auth Guard",
+      "input": "/dashboard",
+      "expected": "Unauthenticated user redirected to sign-in",
+      "actual": "http://localhost:3009/sign-in",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:11.207Z"
+    },
+    {
+      "number": 13,
+      "name": "Configuration Auth Guard",
+      "input": "/configuration",
+      "expected": "Redirect to sign-in",
+      "actual": "http://localhost:3009/sign-in",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:13.161Z"
+    },
+    {
+      "number": 14,
+      "name": "Admin Auth Guard",
+      "input": "/admin/dashboard",
+      "expected": "Redirect to sign-in",
+      "actual": "http://localhost:3009/admin/sign-in",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:14.943Z"
+    },
+    {
+      "number": 15,
+      "name": "Signup Page",
+      "input": "/sign-up",
+      "expected": "Signup page available",
+      "actual": "URL=http://localhost:3009/sign-up, Inputs=4",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:17.137Z"
+    },
+    {
+      "number": 16,
+      "name": "Signup User Input",
+      "input": "{\"name\":\"Test User\",\"username\":\"testuser_1787225809507\",\"email\":\"testuser_1787225809507@example.com\",\"password\":\"Test@12345\",\"phone\":\"0771234567\"}",
+      "expected": "User fields are populated",
+      "actual": "name=true, username=false, email=true, password=true, phone=false",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:17.249Z"
+    },
+    {
+      "number": 17,
+      "name": "Signup Submission",
+      "input": "Username=testuser_1787225809507",
+      "expected": "Account created successfully",
+      "actual": "URL=http://localhost:3009/sign-up",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:20.335Z"
+    },
+    {
+      "number": 18,
+      "name": "Login Page",
+      "input": "/sign-in",
+      "expected": "Login page renders",
+      "actual": "Inputs=2",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:22.139Z"
+    },
+    {
+      "number": 19,
+      "name": "Login Input",
+      "input": "Email=testuser_1787225809507@example.com",
+      "expected": "Credentials entered",
+      "actual": "Username/email=true, Password=true",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:22.241Z"
+    },
+    {
+      "number": 20,
+      "name": "Login Submission",
+      "input": "testuser_1787225809507@example.com",
+      "expected": "User successfully authenticated",
+      "actual": "URL=http://localhost:3009/sign-in",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:25.357Z"
+    },
+    {
+      "number": 21,
+      "name": "Homepage Button Discovery",
+      "input": "Scan all buttons",
+      "expected": "Buttons are discoverable",
+      "actual": "18 buttons found",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:26.342Z"
+    },
+    {
+      "number": 22,
+      "name": "Input Field Discovery",
+      "input": "Scan homepage inputs",
+      "expected": "Input fields can be identified",
+      "actual": "0 inputs found",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:26.345Z"
+    },
+    {
+      "number": 23,
+      "name": "Link Discovery",
+      "input": "Scan homepage links",
+      "expected": "Links are present and identifiable",
+      "actual": "11 links found",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:26.352Z"
+    },
+    {
+      "number": 24,
+      "name": "Search Function",
+      "input": "Find search input",
+      "expected": "Search field exists",
+      "actual": "No search field found",
+      "status": "NOT_TESTABLE",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:26.386Z"
+    },
+    {
+      "number": 25,
+      "name": "Desktop Responsive Layout",
+      "input": "1440x900",
+      "expected": "Page renders without major layout failure",
+      "actual": "Perception Mapper AI",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:27.053Z"
+    },
+    {
+      "number": 26,
+      "name": "Tablet Responsive Layout",
+      "input": "768x1024",
+      "expected": "Page remains usable",
+      "actual": "Screenshot captured",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:28.196Z"
+    },
+    {
+      "number": 27,
+      "name": "Mobile Responsive Layout",
+      "input": "390x844",
+      "expected": "Page remains usable",
+      "actual": "Screenshot captured",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:29.293Z"
+    },
+    {
+      "number": 28,
+      "name": "Network/API Monitoring",
+      "input": "Monitor browser requests",
+      "expected": "No failed requests",
+      "actual": "0 failed requests",
+      "status": "PASS",
+      "severity": "",
+      "timestamp": "2026-08-20T11:37:29.293Z"
+    },
+    {
+      "number": 29,
+      "name": "Browser Console Monitoring",
+      "input": "Monitor console",
+      "expected": "No JavaScript errors",
+      "actual": "1 console/page errors",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "timestamp": "2026-08-20T11:37:29.293Z"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://localhost:3009/",
+      "time": "2026-08-20T11:36:50.295Z"
+    }
+  ],
+  "networkErrors": [],
+  "generatedAt": "2026-08-20T11:37:29.293Z"
+}
