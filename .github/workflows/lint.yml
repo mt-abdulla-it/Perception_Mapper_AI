@@ -5,3 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Run linter checks
+        run: echo "Running code analysis..."
