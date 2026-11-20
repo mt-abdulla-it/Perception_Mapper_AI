@@ -2,11 +2,13 @@
 
 # Step 1: Base builder
 FROM node:18-alpine AS base
+RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
 # Install dependencies first
 COPY package.json package-lock.json* ./
 COPY apps/api/package.json ./apps/api/
+COPY apps/api/prisma/ ./apps/api/prisma/
 COPY packages/ ./packages/
 
 RUN npm ci
